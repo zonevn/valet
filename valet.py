@@ -6,7 +6,7 @@ from settings import ACTIONS
 
 
 def main():
-    # try:
+    try:
         parser = argparse.ArgumentParser(prog='tutorial')
         parser.add_argument('command', help='Command helper', choices=ACTIONS)
         parser.add_argument('-d', '--data', help='data helper', nargs='*')
@@ -26,9 +26,9 @@ def main():
         if args.remember:
             dataset.save()
 
-    # except Exception as e:
-    #     print('Error: ', e)
-    #     parser.print_help()
+    except Exception as e:
+        print('Error: ', e)
+        parser.print_help()
 
 
 if __name__ == '__main__':
