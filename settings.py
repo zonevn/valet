@@ -1,3 +1,3 @@
 PATH = {'download': 'download/', }
-ACTIONS = ['getstate', 'extract', ]
+ACTIONS = ['status', 'extract', ]
 DATABASE = 'db.prop'

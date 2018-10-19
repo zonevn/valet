@@ -2,18 +2,19 @@ from library import DataSet, InputOption
 from settings import PATH
 
 
-def getstate():
-    task = DataSet()
-    print(task.data)
+def status():
+    dataset = DataSet()
+    print(dataset.data)
 
 
 def extract():
+    docs = "Usage: valet extract -d url attr [saveas]"
     import requests
     from lxml import html
 
     option = InputOption()
-    assert hasattr(option, 'url'), "URL not found."
-    assert hasattr(option, 'attr'), "Attributes not found."
+    assert hasattr(option, 'url'), '\n'.join(["URL not found.", docs])
+    assert hasattr(option, 'attr'), '\n'.join(["Attributes not found.", docs])
 
     url = getattr(option, 'url')
     attr = getattr(option, 'attr')
