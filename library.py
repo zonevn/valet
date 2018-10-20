@@ -18,5 +18,4 @@ class DataSet:
 @singleton
 class InputOption:
     def setup(self, args):
-        attrs = parse(args)
-        self.__dict__.update(attrs)
+        self.__dict__.update(parse(args))
