@@ -1,34 +1,27 @@
-import argparse
 import importlib
+import os
+import sys
 
-from library import DataSet, InputOption
-from settings import ACTIONS
+
+def is_match(string, parrentstring):
+    return string in parrentstring
+
+
+def fetch_command(subcommand):
+    commands = os.listdir(os.path.join(os.path.dirname(__file__), 'commands'))
+    assert is_match('.'.join([subcommand, 'py']), commands), "{} not matched".format(subcommand)
+    module = importlib.import_module('commands.{}'.format(subcommand))
+    return module.Command()
 
 
 def main():
     try:
-        parser = argparse.ArgumentParser(prog='tutorial')
-        parser.add_argument('command', help='Command helper', choices=ACTIONS)
-        parser.add_argument('-d', '--data', help='data helper', nargs='*')
-        parser.add_argument('-r', '--remember', action='store_true', help='data helper')
-        args = parser.parse_args()
+        subcommand = sys.argv[1]
+    except IndexError:
+        subcommand = 'help'
 
-        dataset = DataSet()
-        dataset.load()
-
-        ins = InputOption()
-        ins.setup(args.data)
-
-        module = importlib.import_module('actions')
-        action = getattr(module, args.command)
-        action()
-
-        if args.remember:
-            dataset.save()
-
-    except Exception as e:
-        print('Error: ', e)
-        parser.print_help()
+    command = fetch_command(subcommand)  # type:BaseCommand
+    command.run(sys.argv)
 
 
 if __name__ == '__main__':

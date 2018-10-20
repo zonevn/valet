@@ -1,15 +1,14 @@
+import argparse
+
 from library import DataSet, InputOption
 from settings import PATH
 
 
-def getstate():
-    task = DataSet()
-    print(task.data)
-
-
-def extract():
+def extract(args):
     import requests
     from lxml import html
+
+    parser=argparse.ArgumentParser()
 
     option = InputOption()
     assert hasattr(option, 'url'), "URL not found."
