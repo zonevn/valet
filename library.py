@@ -1,21 +1,15 @@
-from decorator import singleton
-from helper import load_data, save_data, parse
-from settings import DATABASE
+import pickle
 
 
-@singleton
-class DataSet:
-    def __init__(self):
-        self.data = {}
+class DataAdapter:
 
-    def load(self):
-        self.data = load_data(DATABASE)
+    def load(self, db):
+        fopen = open(db, 'rb')
+        data = pickle.load(fopen)
+        fopen.close()
+        return data
 
-    def save(self):
-        save_data(self.data, self.source)
-
-
-@singleton
-class InputOption:
-    def setup(self, args):
-        self.__dict__.update(parse(args))
+    def save(self, db, data):
+        fopen = open(db, 'wb')
+        pickle.dump(data, fopen)
+        fopen.close()

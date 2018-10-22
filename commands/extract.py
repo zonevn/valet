@@ -7,7 +7,6 @@ from base import BaseCommand
 
 
 class Command(BaseCommand):
-    desc = ''
 
     def add_args(self, parser: argparse.ArgumentParser):
         parser.add_argument('url')

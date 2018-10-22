@@ -3,25 +3,27 @@ import os
 import sys
 
 
-def is_match(string, parrentstring):
-    return string in parrentstring
+def is_match(command, list_commands):
+    return command in list_commands
 
 
-def fetch_command(subcommand):
+def fetch_command(command):
     commands = os.listdir(os.path.join(os.path.dirname(__file__), 'commands'))
-    assert is_match('.'.join([subcommand, 'py']), commands), "{} not matched".format(subcommand)
-    module = importlib.import_module('commands.{}'.format(subcommand))
+    assert is_match('.'.join([command, 'py']), commands), "{} not matched".format(command)
+    module = importlib.import_module('commands.{}'.format(command))
     return module.Command()
 
 
 def main():
     try:
-        subcommand = sys.argv[1]
+        sub_command = sys.argv[1]
     except IndexError:
-        subcommand = 'help'
-
-    command = fetch_command(subcommand)  # type:BaseCommand
-    command.run(sys.argv)
+        sub_command = 'help'
+    try:
+        command = fetch_command(sub_command)  # type:BaseCommand
+        command.run(sys.argv)
+    except Exception as e:
+        print(e)
 
 
 if __name__ == '__main__':
