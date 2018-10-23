@@ -23,7 +23,7 @@ def main():
         command = fetch_command(sub_command)  # type:BaseCommand
         command.run(sys.argv)
     except Exception as e:
-        print(e)
+        print("Error: ", e)
 
 
 if __name__ == '__main__':
