@@ -19,11 +19,9 @@ def main():
         sub_command = sys.argv[1]
     except IndexError:
         sub_command = 'help'
-    try:
-        command = fetch_command(sub_command)  # type:BaseCommand
-        command.run(sys.argv)
-    except Exception as e:
-        print("Error: ", e)
+
+    command = fetch_command(sub_command)  # type:BaseCommand
+    command.run(sys.argv)
 
 
 if __name__ == '__main__':
