@@ -1,6 +1,7 @@
 import argparse
 import os
 import subprocess
+import sys
 
 import pyautogui as robot
 from base import BaseCommand
@@ -19,8 +20,14 @@ class Command(BaseCommand):
             print('Interrupted.')
             exit()
 
-    def sign_pdf(self, filename, delay=robot.MINIMUM_SLEEP):
-        subprocess.call([APP_DIRS['pdf'], os.path.join(FILE_DIRS['checkparams'], filename)])
+    def sign_pdf(self, filename):
+        try:
+            proc = subprocess.Popen([APP_DIRS['pdf'], os.path.join(FILE_DIRS['checkparams'], filename)])
+            proc.wait(10)
+        finally:
+            self.assign_bot(0.5)
+
+    def assign_bot(self, delay=robot.MINIMUM_SLEEP):
         robot.hotkey('ctrl', 'e', pause=delay)
         robot.mouseDown(x=600, y=510, pause=delay)
         robot.moveRel(300, 80, pause=delay)
