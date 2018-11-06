@@ -25,16 +25,16 @@ class Command(BaseCommand):
             proc = subprocess.Popen([APP_DIRS['pdf'], os.path.join(FILE_DIRS['checkparams'], filename)])
             proc.wait(10)
         finally:
-            self.assign_bot(0.5)
+            self._autorun(0.5)
 
-    def assign_bot(self, delay=robot.MINIMUM_SLEEP):
+    def _autorun(self, delay=robot.MINIMUM_SLEEP):
         robot.hotkey('ctrl', 'e', pause=delay)
-        robot.mouseDown(x=600, y=510, pause=delay)
+        robot.mouseDown(x=600, y=540, pause=delay)
         robot.moveRel(300, 80, pause=delay)
         robot.mouseUp()
         robot.press('del', pause=delay)
         robot.hotkey('ctrl', 'u', pause=delay)
-        robot.click(x=672, y=492, pause=delay)
+        robot.click(x=652, y=472, pause=delay)
         robot.click(x=772, y=584, clicks=2, interval=0.25)
         robot.hotkey('ctrl', 's', pause=delay)
         robot.hotkey('ctrl', 'w', pause=delay)
